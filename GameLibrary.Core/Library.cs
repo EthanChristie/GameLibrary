@@ -9,6 +9,9 @@ namespace GameLibrary.Core
     {
         public void AddGame(Game game)
         {
+            if (string.IsNullOrEmpty(game.Title))
+                throw new InvalidOperationException("Game must have a title");
+
             if (Get(game.Title) != Game.Empty)
                 throw new InvalidOperationException("Game already exists");
 

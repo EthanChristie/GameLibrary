@@ -68,7 +68,7 @@ namespace GameLibrary.QualityAssurance
         {
             var game = _library.Get("FooBar");
 
-            Assert.Null(game);
+            Assert.AreEqual(Game.Empty, game);
         }
 
         [Test]
@@ -88,13 +88,32 @@ namespace GameLibrary.QualityAssurance
         }
 
         [Test]
-        public void TestRateGame()
+        public void TestRateGameSingleRating()
         {
             _library.RateGame("Dead Island", 5);
-
             var rating = _library.GetRating("Dead Island");
 
             Assert.AreEqual(5, rating);
+        }
+
+        [Test]
+        public void TestRateGameMultipleRatings()
+        {
+            _library.RateGame("Step Up for Kinect", 1);
+            _library.RateGame("Step Up for Kinect", 2);
+            _library.RateGame("Step Up for Kinect", 2);
+            _library.RateGame("Step Up for Kinect", 3);
+
+            var rating = _library.GetRating("Step Up for Kinect");
+            Assert.AreEqual(2, rating);
+        }
+        
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(6)]
+        public void TestRateGameRatingOutOfBounds(int rating)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => _library.RateGame("Step Up for Kinect", rating));
         }
     }
 }
