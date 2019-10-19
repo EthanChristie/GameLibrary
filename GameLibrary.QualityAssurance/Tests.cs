@@ -108,12 +108,31 @@ namespace GameLibrary.QualityAssurance
             Assert.AreEqual(2, rating);
         }
         
+        [Test]
+        public void TestRateGameMultipleRatingsRounded()
+        {
+            _library.RateGame("Step Up for Kinect", 1);
+            _library.RateGame("Step Up for Kinect", 2);
+            _library.RateGame("Step Up for Kinect", 3);
+            _library.RateGame("Step Up for Kinect", 4);
+
+            var rating = _library.GetRating("Step Up for Kinect");
+            Assert.AreEqual(3, rating);
+        }
+        
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(6)]
         public void TestRateGameRatingOutOfBounds(int rating)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => _library.RateGame("Step Up for Kinect", rating));
+        }
+
+        [Test]
+        public void TestGetRatingNoRatings()
+        {
+            var rating = _library.GetRating("Dead Island");
+            Assert.AreEqual(0, rating);
         }
     }
 }

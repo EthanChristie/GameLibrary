@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace GameLibrary.Core
@@ -46,7 +45,7 @@ namespace GameLibrary.Core
         public int GetRating(string title)
         {
             var game = Get(title);
-            return game.Rating;
+            return game.GetRating();
         }
     }
 }
