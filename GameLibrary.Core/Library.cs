@@ -8,13 +8,19 @@ namespace GameLibrary.Core
     {
         private List<Game> Games { get; } = new List<Game>();
 
-        public void AddGame(Game game)
+        public void AddGame(string title, string description)
         {
-            if (string.IsNullOrEmpty(game.Title))
+            if (string.IsNullOrEmpty(title))
                 throw new InvalidOperationException("Game must have a title");
 
-            if (Get(game.Title) != Game.Empty)
+            if (Get(title) != Game.Empty)
                 throw new InvalidOperationException("Game already exists");
+
+            var game = new Game
+            {
+                Title = title,
+                Description = description
+            };
 
             Games.Add(game);
         }

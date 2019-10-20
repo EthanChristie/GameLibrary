@@ -14,26 +14,9 @@ namespace GameLibrary.QualityAssurance
         {
             _library = new Library();
 
-            var gow3 = new Game
-            {
-                Title = "Gears of War 3",
-                Description = "Shoot 'em up"
-            };
-
-            var stepUp = new Game
-            {
-                Title = "Step Up for Kinect",
-                Description = "Kinect adventure game"
-            };
-            var deadIsland = new Game
-            {
-                Title = "Dead Island",
-                Description = "Survival horror"
-            };
-
-            _library.AddGame(gow3);
-            _library.AddGame(stepUp);
-            _library.AddGame(deadIsland);
+            _library.AddGame("Gears of War 3", "Shoot 'em up");
+            _library.AddGame("Step Up for Kinect", "Kinect adventure game");
+            _library.AddGame("Dead Island", "Survival horror");
         }
 
         [Test]
@@ -45,7 +28,7 @@ namespace GameLibrary.QualityAssurance
                 Description = "Massively multi-player online role playing game by Blizzard"
             };
 
-            _library.AddGame(worldOfWarcraft);
+            _library.AddGame("World of Warcraft", "Massively multi-player online role playing game by Blizzard");
 
             var libraryHasWorldOfWarcraft = _library.GetAll().Select(g => g.Title).Contains("World of Warcraft");
 
