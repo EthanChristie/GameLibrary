@@ -6,6 +6,8 @@ namespace GameLibrary.Core
 {
     public class Library
     {
+        private List<Game> Games { get; } = new List<Game>();
+
         public void AddGame(Game game)
         {
             if (string.IsNullOrEmpty(game.Title))
@@ -16,8 +18,6 @@ namespace GameLibrary.Core
 
             Games.Add(game);
         }
-
-        private List<Game> Games { get; } = new List<Game>();
 
         public void EditDescription(string title, string description)
         {
@@ -32,20 +32,6 @@ namespace GameLibrary.Core
         {
             var game = Games.SingleOrDefault(g => g.Title == title);
             return game ?? Game.Empty;
-        }
-
-        public void RateGame(string title, int rating)
-        {
-            if (rating < 1 || rating > 5)
-                throw new ArgumentOutOfRangeException(nameof(rating), rating, "Rating must be between 1-5");
-
-            Get(title).Rate(rating);
-        }
-
-        public int GetRating(string title)
-        {
-            var game = Get(title);
-            return game.GetRating();
         }
 
         public Game[] GetAll(SortingMethod sortingMethod = SortingMethod.None)
@@ -65,6 +51,20 @@ namespace GameLibrary.Core
             }
 
             return allGames;
+        }
+
+        public void RateGame(string title, int rating)
+        {
+            if (rating < 1 || rating > 5)
+                throw new ArgumentOutOfRangeException(nameof(rating), rating, "Rating must be between 1-5");
+
+            Get(title).Rate(rating);
+        }
+
+        public int GetRating(string title)
+        {
+            var game = Get(title);
+            return game.GetRating();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameLibrary
+namespace GameLibrary.Runner
 {
     public class Program
     {
