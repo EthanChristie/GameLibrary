@@ -17,7 +17,7 @@ namespace GameLibrary.Core
             Games.Add(game);
         }
 
-        public List<Game> Games { get; } = new List<Game>();
+        private List<Game> Games { get; } = new List<Game>();
 
         public void EditDescription(string title, string description)
         {
@@ -46,6 +46,25 @@ namespace GameLibrary.Core
         {
             var game = Get(title);
             return game.GetRating();
+        }
+
+        public Game[] GetAll(SortingMethod sortingMethod = SortingMethod.None)
+        {
+            Game[] allGames = {};
+            switch (sortingMethod)
+            {
+                case SortingMethod.None:
+                    allGames = Games.ToArray();
+                    break;
+                case SortingMethod.Ascending:
+                    allGames = Games.OrderBy(g => g.Rating).ToArray();
+                    break;
+                case SortingMethod.Descending:
+                    allGames = Games.OrderByDescending(g => g.Rating).ToArray();
+                    break;
+            }
+
+            return allGames;
         }
     }
 }

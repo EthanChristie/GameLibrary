@@ -47,10 +47,10 @@ namespace GameLibrary.QualityAssurance
 
             _library.AddGame(worldOfWarcraft);
 
-            var libraryHasWorldOfWarcraft = _library.Games.Select(g => g.Title).Contains("World of Warcraft");
+            var libraryHasWorldOfWarcraft = _library.GetAll().Select(g => g.Title).Contains("World of Warcraft");
 
             Assert.True(libraryHasWorldOfWarcraft);
-            Assert.AreEqual(4, _library.Games.Count);
+            Assert.AreEqual(4, _library.GetAll().Length);
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace GameLibrary.QualityAssurance
         }
         
         [TestCase(0)]
-        [TestCase(-1)]
+        [TestCase(-1)]  
         [TestCase(6)]
         public void TestRateGameRatingOutOfBounds(int rating)
         {
@@ -134,5 +134,35 @@ namespace GameLibrary.QualityAssurance
             var rating = _library.GetRating("Dead Island");
             Assert.AreEqual(0, rating);
         }
+
+        [Test]
+        public void TestGetSortedListDesc()
+        {
+            _library.RateGame("Gears of War 3", 5);
+            _library.RateGame("Step Up for Kinect", 1);
+            _library.RateGame("Dead Island", 3);
+
+            var games = _library.GetAll(SortingMethod.Descending);
+
+            Assert.AreEqual("Gears of War 3", games[0].Title);
+            Assert.AreEqual("Dead Island", games[1].Title);
+            Assert.AreEqual("Step Up for Kinect", games[2].Title);
+        }
+        
+        [Test]
+        public void TestGetSortedListAsc()
+        {
+            _library.RateGame("Gears of War 3", 5);
+            _library.RateGame("Step Up for Kinect", 1);
+            _library.RateGame("Dead Island", 3);
+
+            var games = _library.GetAll(SortingMethod.Ascending);
+
+            Assert.AreEqual("Step Up for Kinect", games[0].Title);
+            Assert.AreEqual("Dead Island", games[1].Title);
+            Assert.AreEqual("Gears of War 3", games[2].Title);
+        }
     }
+
+    
 }

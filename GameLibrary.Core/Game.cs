@@ -17,6 +17,8 @@ namespace GameLibrary.Core
 
         private readonly List<int> _ratings = new List<int>();
 
+        public int Rating => GetRating();
+
         public int GetRating()
         {
             if (_ratings.Count == 0)
