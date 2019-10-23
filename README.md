@@ -2,7 +2,7 @@
 A .NET Core 3 console app that acts as a basic game library.  It records information about the games including name, description and rating.
 
 ## Prerequisites
-None
+.NET Core 3.0 Runtime
 
 ## Example Usage
 
